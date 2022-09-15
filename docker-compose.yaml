@@ -1,0 +1,23 @@
+services:
+  ms-bootcamp-mysql:
+    image: mysql
+    hostname: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3309:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  backend:
+    image: uni-bootcamp:v.3
+    hostname: ms-backend
+    ports:
+      - "9888:9878"
+    environment:
+      DATABASE_HOSTNAME: mysql-db
+    depends_on:
+      - ms-bootcamp-mysql
+
+volumes:
+  db_data:
